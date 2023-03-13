@@ -36,11 +36,6 @@ function EmployeeOrgChart({
       : removeDisConnectedRootTeamMemebers();
 
     function removeDisConnectedRootTeamMemebers() {
-      const selectedEmployeesFromRoot = [
-        ...employeeList.filter(emp => emp.team === rootTeam),
-        ...selectedEmployees,
-      ];
-
       const tree = buildTree(employeeList)[0];
       const pathList = [
         ...new Set(
@@ -49,10 +44,7 @@ function EmployeeOrgChart({
             .flat(1)
         ),
       ];
-
-      return selectedEmployeesFromRoot.filter(emp =>
-        emp.team !== selectedTeam ? pathList.includes(emp.id) : true
-      );
+      return employeeList.filter(emp => pathList.includes(emp.id));
     }
   }
 
